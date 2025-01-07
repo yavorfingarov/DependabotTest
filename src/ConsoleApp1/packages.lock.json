@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net9.0": {
+      "Ulid": {
+        "type": "Direct",
+        "requested": "[1.3.3, )",
+        "resolved": "1.3.3",
+        "contentHash": "58eRa3gxKiTNXbGYUCy2T3biFAQehB+yBFKXoBGLjZbhBxbU1VUV5QnMgPNAU7gb2HZy3M6703pcUrC4p4IViA=="
+      }
+    }
+  }
+}
