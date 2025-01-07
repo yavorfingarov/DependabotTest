@@ -1,0 +1,40 @@
+name: CD
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+env:
+  NUGET_PACKAGES: ${{ github.workspace }}\.nuget\packages
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: .\global.json
+          cache: true
+          cache-dependency-path: '**\packages.lock.json'
+
+      - name: Initialize
+        id: init
+        run: .\build\run.ps1 --exclusive --target Initialize
+
+      - name: Restore NuGet packages
+        run: .\build\run.ps1 --exclusive --target RestoreNuGetPackages
+
+      - name: Build
+        run: .\build\run.ps1 --exclusive --target Build
